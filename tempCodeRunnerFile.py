@@ -28,8 +28,7 @@ else:
     TENTATIVAS_TOTAIS = 5
 
 # loop
-# for parametros - range(start, stop, [step])
-for RODADA in range(1, TENTATIVAS_TOTAIS + 1):
+for RODADA in range(1, TENTATIVAS_TOTAIS + 1): # for parametros - range(start, stop, [step])
     chute = int(input("Digite seu palpite de sorte: "))
 
     if chute < 1 or chute > 100:
