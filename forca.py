@@ -1,49 +1,40 @@
 """Esse arquivo corresponde ao jogo de forca e toda sua lógica"""
-
 import random
 
 
 def jogar():
     '''função que retorna o jogo por si só'''
-
     # funcoes
     print_bem_vindo()
     palavra_secreta = carrega_palavra_secreta()
 
-    # List Comprehension
-    letras_acertadas = ["_" for letra in palavra_secreta]
+    letras_acertadas = inicializa_letras_acertadas(palavra_secreta)
+    print(letras_acertadas)
+
     enforcou = False
     acertou = False
     erros = 0
 
-    print(letras_acertadas)
-
     while (not enforcou and not acertou):
 
-        chute = input("Qual letra? ").strip().upper()
+        chute = pede_chute()
 
         if (chute in palavra_secreta):
-            index = 0
-            for letra in palavra_secreta:
-                if (chute == letra):
-                    letras_acertadas[index] = letra
-                index += 1
+            marca_chute_correto(chute, letras_acertadas, palavra_secreta)
         else:
             erros += 1
-            print(f"Ops, você errou! Faltam {(6 - erros)} tentativas.")
+            desenha_forca(erros)
+            print(f"Ops, você errou! Faltam {(7 - erros)} tentativas.")
 
-        enforcou = erros == 6
+        enforcou = erros == 7
         acertou = "_" not in letras_acertadas
 
         print(letras_acertadas)
 
     if (acertou):
-        print("Parabéns!!! Você ganhou.")
+        print_msg_vencedor()
     else:
-        print("Você perdeu!"
-              f"A palavra era {palavra_secreta}. Mais sorte na próxima.")
-
-    print("Fim do Jogo")
+        print_msg_perdedor(palavra_secreta)
 
 
 def print_bem_vindo():
@@ -67,6 +58,109 @@ def carrega_palavra_secreta():
     numero_aleatorio = random.randrange(0, len(palavras))
     palavra_secreta = palavras[numero_aleatorio].upper()
     return palavra_secreta
+
+
+def inicializa_letras_acertadas(palavra):
+    return ["_" for letra in palavra]
+
+
+def pede_chute():
+    chute = input("Qual letra? ").strip().upper()
+    return chute
+
+
+def marca_chute_correto(chute, letras_acertadas, palavra_secreta):
+    i = 0
+    for letra in palavra_secreta:
+        if (chute == letra):
+            letras_acertadas[i] = letra
+        i += 1
+
+
+def desenha_forca(erros):
+    print("  _______     ")
+    print(" |/      |    ")
+
+    if (erros == 1):
+        print(" |      (_)   ")
+        print(" |            ")
+        print(" |            ")
+        print(" |            ")
+
+    if (erros == 2):
+        print(" |      (_)   ")
+        print(" |      \     ")
+        print(" |            ")
+        print(" |            ")
+
+    if (erros == 3):
+        print(" |      (_)   ")
+        print(" |      \|    ")
+        print(" |            ")
+        print(" |            ")
+
+    if (erros == 4):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |            ")
+        print(" |            ")
+
+    if (erros == 5):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |            ")
+
+    if (erros == 6):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      /     ")
+
+    if (erros == 7):
+        print(" |      (_)   ")
+        print(" |      \|/   ")
+        print(" |       |    ")
+        print(" |      / \   ")
+
+    print(" |            ")
+    print("_|___         ")
+    print()
+
+
+def print_msg_vencedor():
+    print("Parabéns, você ganhou!")
+    print("       ___________      ")
+    print("      '._==_==_=_.'     ")
+    print("      .-\\:      /-.    ")
+    print("     | (|:.     |) |    ")
+    print("      '-|:.     |-'     ")
+    print("        \\::.    /      ")
+    print("         '::. .'        ")
+    print("           ) (          ")
+    print("         _.' '._        ")
+    print("        '-------'       ")
+
+
+def print_msg_perdedor(palavra_secreta):
+    print("Puxa, você foi enforcado!")
+    print(f"A palavra era {palavra_secreta}")
+    print("     _______________ ")
+    print("    /               \ ")
+    print("   /                 \ ")
+    print("/\/                   \/\ ")
+    print("\ |   XXXX     XXXX   | / ")
+    print(" \|   XXXX     XXXX   |/ ")
+    print("  |   XXX       XXX   | ")
+    print("  |                   | ")
+    print("  \__      XXX      __/ ")
+    print("    |\     XXX     /| ")
+    print("    | |           | | ")
+    print("    | I I I I I I I | ")
+    print("    |  I I I I I I  | ")
+    print("    \_             _/ ")
+    print("      \_         _/ ")
+    print("        \_______/ ")
 
 
 if (__name__ == '__main__'):
