@@ -24,6 +24,8 @@ def jogar():
     # loop
     verifica_chute(tentativas_totais, numero_secreto, pontos)
 
+    print("teste 123")
+
     print_endgame_msg()
 
 
@@ -73,7 +75,7 @@ def verifica_chute(tentativas_totais, numero_secreto, pontos):
 
         print(f'Tentativa {rodada} de {tentativas_totais}')
         if (acertou):
-            print_msg_acertou()
+            print_msg_acertou(pontos)
             break  # interrompe o laço se acertou
         if (maior):
             print('Você errou! O seu chute foi maior do que o número secreto.')
