@@ -15,6 +15,7 @@ def jogar():
 
     # determinando variaveis do jogo
     numero_secreto = randint(1, 101)
+    print(numero_secreto)
     tentativas_totais = 0
     pontos = 1000
 
@@ -58,7 +59,7 @@ def verifica_chute(tentativas_totais, numero_secreto, pontos):
     """ função que verifica se o chute dado pelo usuário é igual
     ao número_secreto dentro de x rodadas
     """
-    # for parametros - range(start, stop, [step])
+    # for parâmetros - range(start, stop, [step])
     for rodada in range(1, tentativas_totais + 1):
         chute = int(input('Digite seu palpite de sorte: '))
 
@@ -78,9 +79,17 @@ def verifica_chute(tentativas_totais, numero_secreto, pontos):
             print_msg_acertou(pontos)
             break  # interrompe o laço se acertou
         if (maior):
-            print('Você errou! O seu chute foi maior do que o número secreto.')
+            if rodada == tentativas_totais:
+                print_msg_perdedor(numero_secreto)
+            else:
+                print('Você errou! O seu chute foi maior do que o "\
+                     "número secreto.')
         if (menor):
-            print('Você errou! O seu chute foi menor do que o número secreto.')
+            if rodada == tentativas_totais:
+                print_msg_perdedor(numero_secreto)
+            else:
+                print('Você errou! O seu chute foi menor do que o "\
+                     "número secreto.')
 
         pontos_perdidos = abs(numero_secreto - chute)
         pontos -= pontos_perdidos
